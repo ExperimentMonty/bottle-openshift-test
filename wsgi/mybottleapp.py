@@ -1,4 +1,4 @@
-from bottle import route, default_app, run
+from bottle import route, default_app, run, jinja2_template as template
 import jinja2
 
 @route('/name/<name>')
@@ -8,6 +8,10 @@ def nameindex(name='Stranger'):
 @route('/')
 def index():
     return '<strong>Hello World!</strong>'
+
+@route('/detect')
+def detect():
+    return template('detect.tmpl')
 
 # This must be added in order to do correct path lookups for the views
 import os
