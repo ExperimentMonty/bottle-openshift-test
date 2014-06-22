@@ -20,7 +20,7 @@ from bottle import TEMPLATE_PATH
 # Don't try to run this while we're testing locally.
 if __name__ != '__main__':
     TEMPLATE_PATH.append(os.path.join(os.environ['OPENSHIFT_HOMEDIR'],
-        'runtime/repo/wsgi/views/'))
+        'app-root/runtime/repo/wsgi/views/'))
 
 application=default_app()
 
