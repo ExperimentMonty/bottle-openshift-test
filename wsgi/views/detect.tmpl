@@ -2,8 +2,8 @@ Detection template will go here.
 {# If this were a full-fledged website, there would actually be interesting
    stuff in base.tml #}
 {% extends 'base.tmpl' %}
-{% set browsers = ['Firefox', 'Chrome', 'Internet Explorer'] %}
-{% set systems = ['Linux', 'Windows'] %}
+{% set browsers = ['Firefox', 'Chrome', 'Internet Explorer', 'Unknown'] %}
+{% set systems = ['Linux', 'Windows', 'Unknown'] %}
 
 {% block title %}Browser/OS Detection Page{% endblock %}
 
@@ -19,10 +19,49 @@ Detection template will go here.
     <tr id='{{ os }}'>
         <td>{{ os }}</td>
         {% for browser in browsers %}
-        <td>{{ browser }}</td>
+        <td class='{{ browser }}'></td>
         {% endfor %}
     </tr>
 {% endfor %}
 
 </table>
+{% endblock %}
+
+{% block javascript %}
+{{ super() }}
+{# Here is code to determine the user's browser/OS combination #}
+<script>
+var os = 'Unknown';
+var browser = 'Unknown';
+
+var agent = navigator.userAgent;
+var app = navigator.appVersion;
+
+if (agent.indexOf('Firefox') != -1){
+    browser = 'Firefox';
+}
+else if (agent.indexOf('Chrome') != -1){
+    browser = 'Chrome';
+}
+else if (agent.indexOf('MSIE') != -1){
+    browser = 'Internet Explorer';
+}
+
+if (app.indexOf('Windows') != -1){
+    os = 'Windows';
+}
+{# These all go to Linux, but they could be broken out on their own #}
+else if (app.indexOf('Mac') != -1){
+    os = 'Linux';
+}
+else if (app.indexOf('X11') != -1){
+    os = 'Linux';
+}
+else if (app.indexOf('Linux') != -1){
+    os = 'Linux';
+}
+
+
+
+</script>
 {% endblock %}
