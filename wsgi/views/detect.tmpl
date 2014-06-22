@@ -34,19 +34,10 @@ Detection template will go here.
 var os = 'Unknown';
 var browser = 'Unknown';
 
-var agent = navigator.userAgent;
 var app = navigator.appVersion;
+var agent = navigator.userAgent;
 
-if (agent.indexOf('Firefox') != -1){
-    browser = 'Firefox';
-}
-else if (agent.indexOf('Chrome') != -1){
-    browser = 'Chrome';
-}
-else if (agent.indexOf('MSIE') != -1){
-    browser = 'Internet Explorer';
-}
-
+{# Detect OS #}
 if (app.indexOf('Windows') != -1){
     os = 'Windows';
 }
@@ -61,7 +52,20 @@ else if (app.indexOf('Linux') != -1){
     os = 'Linux';
 }
 
+{# Detect browser #}
+if (agent.indexOf('Firefox') != -1){
+    browser = 'Firefox';
+}
+else if (agent.indexOf('Chrome') != -1){
+    browser = 'Chrome';
+}
+else if (agent.indexOf('MSIE') != -1){
+    browser = 'Internet Explorer';
+}
 
+
+{# We'd probably want with an on-load, but it's such a small page #}
+$('#'+os+' .'+browser).html('X')
 
 </script>
 {% endblock %}
