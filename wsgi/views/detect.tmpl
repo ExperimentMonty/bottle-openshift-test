@@ -1,1 +1,28 @@
 Detection template will go here.
+{# If this were a full-fledged website, there would actually be interesting
+   stuff in base.tml #}
+{% extends 'base.tmpl' %}
+{% set browsers = ['Firefox', 'Chrome', 'Internet Explorer'] %}
+{% set systems = ['Linux', 'Windows'] %}
+
+{% block title %}Browser/OS Detection Page{% endblock %}
+
+{% block content %}
+<table>
+    {# Create header row. First is blank for OS column #}
+    <th></th>
+    {% for browser in browsers %}
+        <th>{{ browser }}</th>
+    {% endfor %}
+    
+{% for os in systems %}
+    <tr id='{{ os }}'>
+        <td>{{ os }}</td>
+        {% for browser in browsers %}
+        <td>{{ browser }}</td>
+        {% endfor %}
+    </tr>
+{% endfor %}
+
+</table>
+{% endblock %}
